@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"    
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"     
+      xmlns:jsf="http://xmlns.jcp.org/jsf"              
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">   
+
+    <f:view contracts="default" transient="false">
+        <ui:composition template="/template.xhtml"> 
+            <ui:define name="content"> 
+                <h:form>
+                    <div id="page-wrapper">
+                        <div class="row">
+                            <div class="panel-heading">                                
+                                <p:graphicImage value="/resources/img/logo.png" width="100">
+                                    <p:effect type="pulsate" event="click" delay="700"/>
+                                </p:graphicImage>
+                            </div>
+                            <fieldset>                              
+                                <div class="form-group">
+                                    <input type="text" class="form-control" style="width: 400px"  jsf:id="username"
+                                           jsf:requiredMessage="#{i18n.mandatoryfield}"                                            
+                                           placeholder="#{i18n.username}" jsf:required="true" 
+                                           jsf:value="#{userProfile.user.username}" autofocus="true"> 
+                                    </input>       
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" style="width: 400px" jsf:required="true" jsf:requiredMessage="#{i18n.mandatoryfield}" 
+                                           jsf:validatorMessage="#{i18n.token}"
+                                           jsf:value="#{userProfile.user.privateToken}" placeholder="#{i18n.token}">
+                                    </input>
+                                </div>    
+                                <div class="form-group">
+                                    <input type="text" class="form-control" style="width: 400px" jsf:required="true" jsf:requiredMessage="#{i18n.mandatoryfield}" 
+                                           jsf:validatorMessage="#{i18n.gitlabUrl}"
+                                           jsf:value="#{userProfile.user.url}" placeholder="#{i18n.url}">
+                                    </input>
+                                </div>    
+                                <h:commandButton styleClass="btn btn-sky text-uppercase btn-lg"  action="#{userProfile.updateProfile()}" value="#{i18n.update}"/>                               
+                            </fieldset>     
+                            <p:growl showDetail="false" sticky="true" autoUpdate="true"/>
+                        </div>
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </f:view>
+</html>

@@ -1,0 +1,234 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"    
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"     
+      xmlns:jsf="http://xmlns.jcp.org/jsf"         
+      xmlns:passthrough="http://xmlns.jcp.org/jsf/passthrough"     
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">   
+
+    <h:head>
+        <f:metadata>           
+            <f:viewParam id="projectId" name="projectId" value="#{projectViewBean.projectId}"/>   
+        </f:metadata> 
+    </h:head> 
+    <f:view contracts="default" transient="false">
+        <ui:composition template="/template.xhtml">
+            <ui:define name="content"> 
+                <div id="page-wrapper">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1 class="page-header">Project Main View</h1>
+                        </div>                     
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Current State
+                                </div>
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <div class="dataTable_wrapper">
+                                        <h:form>      
+                                            <p:graphicImage value="/resources/img/logo.png" width="100">
+                                                <p:effect type="pulsate" event="click" delay="700"/>
+                                            </p:graphicImage>
+                                            <p:panelGrid columns="4" layout="tabular"   styleClass="ui-panelgrid-blank form-group">
+                                                <div class="ui-g-12">
+                                                    <h:panelGroup styleClass="md-inputfield">
+                                                        <label>Project Name: </label>
+                                                        <h:outputText value="#{projectViewBean.gitlabProject.name}" style="color:red"/>                              
+                                                    </h:panelGroup>
+                                                </div>
+                                                <div class="ui-g-12">
+                                                    <h:panelGroup styleClass="md-inputfield">
+                                                        <label>Project Id: </label>
+                                                        <h:outputText value="#{projectViewBean.gitlabProject.id}" style="color:red"/>                              
+                                                    </h:panelGroup>
+                                                </div>                       
+                                                <div class="ui-g-12">
+                                                    <h:panelGroup styleClass="md-inputfield">
+                                                        <label>Builds Enabled: </label>
+                                                        <h:outputText value="#{projectViewBean.gitlabProject.buildsEnabled}"/>
+                                                    </h:panelGroup>
+                                                </div>
+                                                <div class="ui-g-12">
+                                                    <h:panelGroup styleClass="md-inputfield">                                
+                                                        <label>Default Branch: </label>
+                                                        <h:outputText value="#{projectViewBean.gitlabProject.defaultBranch}"/>
+                                                    </h:panelGroup>
+                                                </div>
+                                                <div class="ui-g-12">
+                                                    <h:panelGroup styleClass="md-inputfield">
+                                                        <label>Description: </label>
+                                                        <h:outputText value="#{projectViewBean.gitlabProject.description}"/>
+                                                    </h:panelGroup>
+                                                </div>
+                                                <div class="ui-g-12">
+                                                    <h:panelGroup styleClass="md-inputfield">
+                                                        <label>CreatedAt: </label>
+                                                        <h:outputText value="#{projectViewBean.gitlabProject.createdAt}">
+                                                            <f:convertDateTime pattern="yyyy-MM-DD"/>   
+                                                        </h:outputText>
+                                                    </h:panelGroup>
+                                                </div>
+                                                <div class="ui-g-12">
+                                                    <h:panelGroup styleClass="md-inputfield">
+                                                        <label>Namespace: </label>
+                                                        <h:outputText value="#{projectViewBean.gitlabProject.namespace.name}"/>
+                                                    </h:panelGroup>
+                                                </div>
+                                                <div class="ui-g-12">
+                                                    <h:panelGroup styleClass="md-inputfield">
+                                                        <label>MergeRequestsEnabled: </label>
+                                                        <h:outputText value="#{projectViewBean.gitlabProject.mergeRequestsEnabled}"/>
+                                                    </h:panelGroup>
+                                                </div>
+                                            </p:panelGrid>
+                                            <h3>Gitlab Builds</h3>
+                                            <p:dataTable var="list" styleClass="table table-striped table-bordered table-hover" value="#{projectViewBean.gitlabBuild}">
+                                                <p:column headerText="Build Name"  style="width:70px">
+                                                    <h:outputText value="#{list.name}" />
+                                                </p:column>
+                                                <p:column headerText="Created At">
+                                                    <h:outputText value="#{list.createdAt}">
+                                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                                    </h:outputText>
+                                                </p:column>
+                                                <p:column headerText="Finished At">
+                                                    <h:outputText value="#{list.finishedAt}" >
+                                                        <f:convertDateTime type="both" pattern="MM/dd/yyyy HH:mm:ss" />
+                                                    </h:outputText>
+                                                </p:column>
+                                                <p:column headerText="Reference" style="width: 50px">
+                                                    <h:outputText value="#{list.ref}" />
+                                                </p:column>
+                                                <p:column headerText="Gitlab runner name">
+                                                    <h:outputText value="#{list.runner.name}" />
+                                                </p:column>
+                                                <p:column headerText="Status"  style="width:70px">                               
+                                                    <h:outputText value="#{list.status}" rendered="#{list.status == 'pending'}" style="color: #843534" />
+                                                    <h:outputText value="#{list.status}" rendered="#{list.status == 'running'}" style="color: #000099" />
+                                                    <h:outputText value="#{list.status}" rendered="#{list.status == 'failed'}" style="color:red" />
+                                                    <h:outputText value="#{list.status}" rendered="#{list.status == 'success'}" style="color: #4cae4c" />
+                                                    <h:outputText value="#{list.status}" rendered="#{list.status == 'skipped'}" style="color: yellowgreen" />
+                                                    <h:outputText value="#{list.status}" rendered="#{list.status == 'canceled'}" style="color: sandybrown" />
+                                                </p:column>
+                                                <p:column headerText="Stage">
+                                                    <h:outputText value="#{list.stage}" />
+                                                </p:column>
+                                            </p:dataTable>
+                                            <h3>Build variables</h3>
+                                            <p:dataTable var="list" styleClass="table table-striped table-bordered table-hover" value="#{projectViewBean.gitlabBuildVariables}">
+                                                <p:column headerText="Key"  style="width:70px">
+                                                    <h:outputText value="#{list.key}" />
+                                                </p:column>
+                                                <p:column headerText="Value"  style="width:70px">
+                                                    <h:outputText value="#{list.value}" />
+                                                </p:column>
+                                            </p:dataTable>
+                                            <h3>Triggers</h3>
+                                            <p:dataTable var="list" styleClass="table table-striped table-bordered table-hover" value="#{projectViewBean.triggersList}">
+                                                <p:column headerText="Token"  style="width:70px">
+                                                    <h:outputText value="#{list.token}" />
+                                                </p:column>
+                                                <p:column headerText="createdAt"  style="width:70px">
+                                                    <h:outputText value="#{list.createdAt}" />
+                                                </p:column>
+                                                <p:column headerText="lastUsed"  style="width:70px">
+                                                    <h:outputText value="#{list.lastUsed}" />
+                                                </p:column>
+                                                <p:column headerText="updatedAt"  style="width:70px">
+                                                    <h:outputText value="#{list.updatedAt}"/>
+                                                </p:column>
+                                                <p:column headerText="Trigger API"  style="width:70px">                              
+                                                    <h:outputLink value="trigger.jsf" styleClass="btn btn-danger">
+                                                        Perform New Build
+                                                        <f:param name="projectId" value="#{projectViewBean.projectId}"/>
+                                                        <f:param name="token" value="#{list.token}"/>                                    
+                                                    </h:outputLink>
+                                                </p:column>                            
+                                            </p:dataTable>
+                                            <h3>All commits</h3>
+                                            <p:dataTable var="list" styleClass="table table-striped table-bordered table-hover" value="#{projectViewBean.allCommits}">
+                                                <p:column headerText="AuthorEmail"  style="width:70px">
+                                                    <h:outputText value="#{list.authorEmail}" />
+                                                </p:column>
+                                                <p:column headerText="AuthorName"  style="width:70px">
+                                                    <h:outputText value="#{list.authorName}" />
+                                                </p:column>
+                                                <p:column headerText="CommittedDate"  style="width:70px">
+                                                    <h:outputText value="#{list.committedDate}" />
+                                                </p:column>
+                                                <p:column headerText="Message"  style="width:70px">
+                                                    <h:outputText value="#{list.message}"/>
+                                                </p:column>
+                                                <p:column headerText="Title"  style="width:70px">
+                                                    <h:outputText value="#{list.title}"/>
+                                                </p:column>
+                                            </p:dataTable>
+                                            <h3>Deploy Keys</h3>
+                                            <p:dataTable var="list" styleClass="table table-striped table-bordered table-hover" value="#{projectViewBean.deployKeys}">
+                                                <p:column headerText="Id"  style="width:15px">
+                                                    <h:outputText value="#{list.id}" />
+                                                </p:column>
+                                                <p:column headerText="Key"  style="width:80px">
+                                                    <h:outputText value="#{list.key}" />
+                                                </p:column>
+                                                <p:column headerText="Title"  style="width:70px">
+                                                    <h:outputText value="#{list.title}" />
+                                                </p:column>
+                                                <p:column headerText="User Email"  style="width:70px">
+                                                    <h:outputText value="#{list.user.email}"/>
+                                                </p:column>
+                                            </p:dataTable>
+                                            <h3>Project Hooks</h3>
+                                            <p:dataTable var="list" styleClass="table table-striped table-bordered table-hover" value="#{projectViewBean.projectHooks}">
+                                                <p:column headerText="Id"  style="width:70px">
+                                                    <h:outputText value="#{list.id}" />
+                                                </p:column>
+                                                <p:column headerText="URL"  style="width:70px">
+                                                    <h:outputText value="#{list.url}" />
+                                                </p:column>
+                                                <p:column headerText="Cretaed At"  style="width:70px">
+                                                    <h:outputText value="#{list.createdAt}" />
+                                                </p:column>
+                                                <p:column headerText="Issue Event?"  style="width:70px">
+                                                    <h:outputText value="#{list.issueEvents}"/>
+                                                </p:column>
+                                                <p:column headerText="MR Events?"  style="width:100px">
+                                                    <h:outputText value="#{list.mergeRequestsEvents}"/>
+                                                </p:column>
+                                                <p:column headerText="Push Events?"  style="width:100px">
+                                                    <h:outputText value="#{list.pushEvents}"/>
+                                                </p:column>
+                                            </p:dataTable>
+                                            <h3>System Hooks</h3>
+                                            <p:dataTable var="list" styleClass="table table-striped table-bordered table-hover" value="#{projectViewBean.systemHooks}">
+                                                <p:column headerText="Id"  style="width:70px">
+                                                    <h:outputText value="#{list.id}" />
+                                                </p:column>
+                                                <p:column headerText="URL"  style="width:70px">
+                                                    <h:outputText value="#{list.url}" />
+                                                </p:column>
+                                                <p:column headerText="Cretaed At"  style="width:70px">
+                                                    <h:outputText value="#{list.createdAt}" />
+                                                </p:column>                            
+                                            </p:dataTable>                       
+                                        </h:form>
+                                    </div>                                    
+                                    <div class="well">
+                                        <h4>Projects Information</h4>                                        
+                                    </div>
+                                </div>                                
+                            </div>                            
+                        </div>
+                    </div>                 
+                </div>
+            </ui:define>
+        </ui:composition>
+    </f:view>
+</html>

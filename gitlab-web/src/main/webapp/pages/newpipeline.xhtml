@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"    
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"     
+      xmlns:jsf="http://xmlns.jcp.org/jsf"         
+      xmlns:passthrough="http://xmlns.jcp.org/jsf/passthrough"     
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"> 
+
+    <h:head>
+        <f:metadata>           
+            <f:viewParam id="projectId" name="projectId" value="#{newPipeLineBean.projectId}"/>
+        </f:metadata> 
+    </h:head> 
+    <f:view contracts="default" transient="true">
+        <ui:composition template="/template.xhtml">
+            <ui:define name="content"> 
+                <div id="page-wrapper">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1 class="page-header">New Pipeline</h1>
+                        </div>                     
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Send Pipeline Builds
+                                </div>
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <div class="dataTable_wrapper">
+                                        <f:view>
+                                            <h:form>      
+                                                <p:graphicImage value="/resources/img/logo.png" width="100">
+                                                    <p:effect type="pulsate" event="click" delay="700"/>
+                                                </p:graphicImage>
+                                                <p:panelGrid columns="1" layout="tabular"  styleClass="ui-panelgrid-blank form-group">
+                                                    <div class="ui-g-12">
+                                                        <h:panelGroup styleClass="md-inputfield">
+                                                            <label>Create New Pipeline</label>
+                                                        </h:panelGroup>
+                                                    </div>
+                                                    <div class="ui-g-12">
+                                                        <h:panelGroup styleClass="md-inputfield">
+                                                            <label>Project Id:  </label>
+                                                            <p:spacer width="10px"/>
+                                                            <h:outputText value="#{newPipeLineBean.projectId}" style="color:red"/>                              
+                                                        </h:panelGroup>
+                                                    </div>
+                                                    <div class="ui-g-12">
+                                                        <h:panelGroup styleClass="md-inputfield">
+                                                            <label>Branch:  </label>
+                                                            <p:spacer width="10px"/>
+                                                            <h:inputText value="#{newPipeLineBean.branch}"  style="color:red"/>                              
+                                                        </h:panelGroup>
+                                                    </div>                             
+                                                    <div class="ui-g-12">
+                                                        <h:outputText value="Just one click and wait for updated" style="color:red"/>  
+                                                        <p:commandButton ajax="true" update="piptable" async="true" action="#{newPipeLineBean.createNewPipeline()}" value="Create New Pipeline"/>
+                                                    </div>                                                       
+                                                </p:panelGrid>                                                  
+                                                <h3>Project Pipelines</h3>
+                                                <p:poll interval="10"  update="piptable" />
+                                                <p:dataTable var="list" id="piptable" styleClass="table table-striped table-bordered table-hover" value="#{newPipeLineBean.pipelinesList}">
+                                                    <p:column headerText="Sha"  style="width:180px">
+                                                        <h:outputText value="#{list.sha}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Tag"  style="width:50px">
+                                                        <h:outputText value="#{list.tag}" />
+                                                    </p:column>
+                                                    <p:column headerText="Status"  style="width:50px">
+                                                        <h:outputText value="#{list.status}" />
+                                                    </p:column>                                                   
+                                                    <p:column headerText="Started_at"  style="width:100px">
+                                                        <h:outputText value="#{list.started_at}"/>
+                                                    </p:column>
+                                                    <p:column headerText="Finished_at"  style="width:100px">
+                                                        <h:outputText value="#{list.finished_at}"/>
+                                                    </p:column>  
+                                                    <p:column headerText="Cancel Build"  style="width:100px">
+                                                        <p:commandButton ajax="true" update="piptable" async="true" rendered="#{list.status == 'running'}" action="#{newPipeLineBean.cancel(list.id)}" value="Cancel"/>                                                          
+                                                    </p:column>  
+                                                    <p:column headerText="Retry Build"  style="width:100px">
+                                                        <p:commandButton ajax="true" update="piptable" async="true" rendered="#{list.status == 'canceled' || list.status == 'failed'}" action="#{newPipeLineBean.retry(list.id)}" value="Retry"/>                                                          
+                                                    </p:column>  
+                                                </p:dataTable>
+                                            </h:form>
+                                        </f:view>
+                                    </div>                                    
+                                    <div class="well">
+                                        <h4></h4>                                        
+                                    </div>
+                                </div>                                
+                            </div>                            
+                        </div>
+                    </div>                 
+                </div>
+            </ui:define>
+        </ui:composition>
+    </f:view>
+</html>

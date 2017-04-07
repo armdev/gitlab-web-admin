@@ -1,0 +1,232 @@
+<ehcache >
+    
+    <diskStore path="user.home/gitlab_cache/gitlab"/>	
+    <defaultCache
+        maxElementsInMemory="100000" 
+        eternal="true"
+        timeToIdleSeconds="3600" 
+        timeToLiveSeconds="3600" 
+        overflowToDisk="true"
+        maxElementsOnDisk="10000000" 
+        diskPersistent="true"
+        diskExpiryThreadIntervalSeconds="3600" 
+        memoryStoreEvictionPolicy="LRU" />
+
+    <cache name="gitlab.project.cache" 
+           maxElementsInMemory="100000"
+           eternal="true"
+           timeToIdleSeconds="3600" 
+           timeToLiveSeconds="3600" 
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="4"
+           maxElementsOnDisk="1000000000"
+           diskPersistent="true"
+           diskExpiryThreadIntervalSeconds="3600"
+           memoryStoreEvictionPolicy="LFU">
+
+     
+    </cache>
+    <cache name="gitlab.build.cache"    
+           maxElementsInMemory="100000"
+           eternal="true"
+           timeToIdleSeconds="3600" 
+           timeToLiveSeconds="3600" 
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="4"
+           maxElementsOnDisk="1000000000"
+           diskPersistent="true"
+           diskExpiryThreadIntervalSeconds="3600"
+           memoryStoreEvictionPolicy="LFU">
+
+      
+   
+    </cache>
+    <cache name="gitlab.build.variable.cache" 
+           maxElementsInMemory="100000"
+           eternal="true"
+           timeToIdleSeconds="3600" 
+           timeToLiveSeconds="3600" 
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="4"
+           maxElementsOnDisk="1000000000"
+           diskPersistent="true"
+           diskExpiryThreadIntervalSeconds="3600"
+           memoryStoreEvictionPolicy="LFU">
+  
+     
+    </cache>
+        
+    <cache name="gitlab.triggers.cache" 
+           maxElementsInMemory="100000"
+           eternal="true"
+           timeToIdleSeconds="3600" 
+           timeToLiveSeconds="3600" 
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="4"
+           maxElementsOnDisk="1000000000"
+           diskPersistent="true"
+           diskExpiryThreadIntervalSeconds="3600"
+           memoryStoreEvictionPolicy="LFU">
+
+     
+        
+    </cache>
+    <cache name="gitlab.commits.cache"   
+           maxElementsInMemory="100000"
+           eternal="true"
+           timeToIdleSeconds="3600" 
+           timeToLiveSeconds="3600" 
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="4"
+           maxElementsOnDisk="1000000000"
+           diskPersistent="true"
+           diskExpiryThreadIntervalSeconds="3600"
+           memoryStoreEvictionPolicy="LFU">
+
+       
+      
+    </cache>
+    <cache name="gitlab.deploykeys.cache"   
+           maxElementsInMemory="100000"
+           eternal="true"
+           timeToIdleSeconds="3600" 
+           timeToLiveSeconds="3600" 
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="4"
+           maxElementsOnDisk="1000000000"
+           diskPersistent="true"
+           diskExpiryThreadIntervalSeconds="3600"
+           memoryStoreEvictionPolicy="LFU">
+
+     
+      
+    </cache>
+    <cache name="gitlab.projecthook.cache"   
+           maxElementsInMemory="100000"
+           eternal="true"
+           timeToIdleSeconds="3600" 
+           timeToLiveSeconds="3600" 
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="4"
+           maxElementsOnDisk="1000000000"
+           diskPersistent="true"
+           diskExpiryThreadIntervalSeconds="3600"
+           memoryStoreEvictionPolicy="LFU">    
+       
+    </cache>
+    <cache name="gitlab.systemhook.cache"   
+           maxElementsInMemory="100000"
+           eternal="true"
+           timeToIdleSeconds="3600" 
+           timeToLiveSeconds="3600" 
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="4"
+           maxElementsOnDisk="1000000000"
+           diskPersistent="true"
+           diskExpiryThreadIntervalSeconds="3600"
+           memoryStoreEvictionPolicy="LFU">
+
+       
+       
+    </cache>
+    
+    <cache name="gitlab.project.list"  
+           maxElementsInMemory="100000"
+           eternal="true"
+           timeToIdleSeconds="3600" 
+           timeToLiveSeconds="3600" 
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="4"
+           maxElementsOnDisk="1000000000"
+           diskPersistent="true"
+           diskExpiryThreadIntervalSeconds="3600"
+           memoryStoreEvictionPolicy="LFU">
+
+    </cache>
+    
+     <cache name="gitlab.email.push"  
+           maxElementsInMemory="100000"
+           eternal="true"
+           timeToIdleSeconds="3600" 
+           timeToLiveSeconds="3600" 
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="4"
+           maxElementsOnDisk="1000000000"
+           diskPersistent="true"
+           diskExpiryThreadIntervalSeconds="3600"
+           memoryStoreEvictionPolicy="LFU">
+
+    </cache>
+    
+    <cache name="gitlab.project.milestones"  
+           maxElementsInMemory="100000"
+           eternal="true"
+           timeToIdleSeconds="3600" 
+           timeToLiveSeconds="3600" 
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="4"
+           maxElementsOnDisk="1000000000"
+           diskPersistent="true"
+           diskExpiryThreadIntervalSeconds="3600"
+           memoryStoreEvictionPolicy="LFU">
+
+    </cache>
+    
+    <cache name="gitlab.project.branches"  
+           maxElementsInMemory="100000"
+           eternal="true"
+           timeToIdleSeconds="3600" 
+           timeToLiveSeconds="3600" 
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="4"
+           maxElementsOnDisk="1000000000"
+           diskPersistent="true"
+           diskExpiryThreadIntervalSeconds="3600"
+           memoryStoreEvictionPolicy="LFU">
+
+    </cache>
+    
+    <cache name="gitlab.project.user"  
+           maxElementsInMemory="100000"
+           eternal="true"
+           timeToIdleSeconds="3600" 
+           timeToLiveSeconds="3600" 
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="4"
+           maxElementsOnDisk="1000000000"
+           diskPersistent="true"
+           diskExpiryThreadIntervalSeconds="3600"
+           memoryStoreEvictionPolicy="LFU">
+
+    </cache>
+    
+     <cache name="gitlab.project.tags"  
+           maxElementsInMemory="100000"
+           eternal="true"
+           timeToIdleSeconds="3600" 
+           timeToLiveSeconds="3600" 
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="4"
+           maxElementsOnDisk="1000000000"
+           diskPersistent="true"
+           diskExpiryThreadIntervalSeconds="3600"
+           memoryStoreEvictionPolicy="LFU">
+
+    </cache>
+    
+      <cache name="gitlab.project.issues"  
+           maxElementsInMemory="100000"
+           eternal="true"
+           timeToIdleSeconds="3600" 
+           timeToLiveSeconds="3600" 
+           overflowToDisk="true"
+           diskSpoolBufferSizeMB="4"
+           maxElementsOnDisk="1000000000"
+           diskPersistent="true"
+           diskExpiryThreadIntervalSeconds="3600"
+           memoryStoreEvictionPolicy="LFU">
+
+    </cache>
+
+
+</ehcache>

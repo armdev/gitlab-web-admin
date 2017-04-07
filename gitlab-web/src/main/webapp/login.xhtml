@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"    
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"     
+      xmlns:jsf="http://xmlns.jcp.org/jsf"         
+      xmlns:passthrough="http://xmlns.jcp.org/jsf/passthrough"     
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">     
+
+    <f:metadata>           
+
+    </f:metadata> 
+    <f:view contracts="general" transient="true">
+        <ui:composition template="/template.xhtml">              
+            <ui:define name="content"> 
+                <h:form styleClass="form-signin" rendered="#{gitlabUserContext.user.id == null}">
+                    <div class="container">                    
+                        <div class="row">                               
+                            <div class="col-md-4 col-md-offset-4">                                 
+                                <div class="login-panel panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Please Sign In</h3>
+                                        <p:graphicImage value="/resources/img/logo.png" width="100">
+                                            <p:effect type="pulsate" event="click" delay="700"/>
+                                        </p:graphicImage>
+                                    </div>
+                                    <div class="panel-body">                                  
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" jsf:id="username"  jsf:requiredMessage="#{i18n.mandatoryfield}" jsf:validatorMessage="#{i18n.fieldlength}"
+                                                       placeholder="#{i18n.username}" jsf:required="true" 
+                                                       jsf:value="#{userLogin.username}" autofocus="true"> 
+                                                </input>       
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" jsf:required="true" jsf:requiredMessage="#{i18n.mandatoryfield}" 
+                                                       jsf:validatorMessage="#{i18n.token}"
+                                                       jsf:value="#{userLogin.privateToken}" placeholder="#{i18n.token}">
+                                                </input>
+                                            </div>                                           
+                                            <!-- Change this to a button or input when using this as a form -->
+                                            <h:commandButton styleClass="btn btn-sky text-uppercase btn-lg"  action="#{userLogin.loginUser}" value="#{i18n.login}"/>
+                                            <p:spacer width="10px"/>
+                                            <h:commandButton styleClass="btn btn-danger text-uppercase btn-lg" action="register" immediate="true" value="#{i18n.register}"/>
+                                        </fieldset>                                              
+                                        <p:growl showDetail="false" sticky="true" autoUpdate="true"/>
+                                    </div>                                    
+                                </div>
+                                <h:commandButton styleClass="btn btn-default" action="index" immediate="true" value="Home Page"/>
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </f:view>
+</html>

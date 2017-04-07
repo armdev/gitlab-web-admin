@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"    
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"     
+      xmlns:jsf="http://xmlns.jcp.org/jsf"         
+      xmlns:passthrough="http://xmlns.jcp.org/jsf/passthrough"     
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">   
+
+
+    <h:head>
+        <f:event listener="#{applicationManager.init()}" type="preRenderView" />
+    </h:head> 
+    <f:view contracts="default" transient="false">
+        <ui:composition template="/template.xhtml">
+            <ui:define name="content"> 
+                <p:growl/>
+                <div id="page-wrapper">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1 class="page-header">Gitlab Projects</h1>
+                        </div>                     
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h:form>
+                                        <button type="submit" jsf:action="#{ownedProjects.doCall()}" jsf:immediate="true" class="btn btn-success">Refresh Gitlub Project List if table is empty.</button>
+                                     
+                                    </h:form>
+                                </div>
+                                <!-- /.panel-heading -->
+                                <div class="panel-body">
+                                    <div class="dataTable_wrapper">
+                                        <h:form>
+                                            <p:dataTable var="list" value="#{ownedProjects.ownedProjectList}" styleClass="table table-striped table-bordered table-hover" rendered="#{ownedProjects.ownedProjectList != null}">
+                                                <p:column headerText="Project name">
+                                                    <h:outputText value="#{list.name}" />
+                                                </p:column>
+                                                <p:column headerText="Default Branch">
+                                                    <h:outputText value="#{list.defaultBranch}" />
+                                                </p:column>
+                                                <p:column headerText="Description">
+                                                    <h:outputText value="#{list.description}" />
+                                                </p:column>
+                                                <p:column headerText="Is Builds Enabled ?">
+                                                    <h:outputText value="#{list.buildsEnabled}" />
+                                                </p:column>
+                                                <p:column headerText="Created At">
+                                                    <h:outputText value="#{list.createdAt}" />
+                                                </p:column>
+                                                <p:column headerText="Is Merge Requests Enabled?">
+                                                    <h:outputText value="#{list.mergeRequestsEnabled}" />
+                                                </p:column>
+                                                <p:column headerText="View">
+                                                    <h:outputLink value="#{request.contextPath}/pages/newpipeline.jsf">
+                                                        New Pipeline
+                                                        <f:param name="projectId" value="#{list.id}"/>
+                                                    </h:outputLink>                            
+                                                </p:column>
+                                                <p:column headerText="View">
+                                                    <h:outputLink value="#{request.contextPath}/pages/details.jsf">
+                                                        Details
+                                                        <f:param name="projectId" value="#{list.id}"/>
+                                                    </h:outputLink>                            
+                                                </p:column>
+                                                <p:column headerText="View">
+                                                    <h:outputLink value="#{request.contextPath}/pages/view.jsf">
+                                                        View
+                                                        <f:param name="projectId" value="#{list.id}"/>
+                                                    </h:outputLink>                            
+                                                </p:column>
+                                            </p:dataTable>
+                                        </h:form>
+                                    </div>                                    
+                                    <div class="well">
+                                        <h4>Projects Information</h4>                                        
+                                    </div>
+                                </div>                                
+                            </div>                            
+                        </div>
+                    </div>                 
+                </div>
+            </ui:define>
+        </ui:composition>
+    </f:view>
+</html>
