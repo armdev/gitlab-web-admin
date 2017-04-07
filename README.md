@@ -9,3 +9,4 @@ How to run?
 4. Sign in.
 5. Load your projects from gitlab, if project have yml file, you can build and have a look logs from admin.
 6. Send trigger job, new pipeline.
+7. Access http://localhost:{Tomcat Port}/gitlab-web/index.jsf
