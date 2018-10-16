@@ -157,7 +157,7 @@
             <artifactId>kotlin-stdlib</artifactId>  
             <version>1.0.4</version> 
         </dependency>         
-        <dependency> 
+<!--         <dependency> 
             <groupId>io.javaslang</groupId>  
             <artifactId>javaslang</artifactId>  
             <version>2.0.5</version> 
@@ -166,7 +166,7 @@
             <groupId>io.javaslang</groupId>  
             <artifactId>javaslang-jackson</artifactId>  
             <version>2.0.5</version> 
-        </dependency>          
+        </dependency>           -->
         <dependency> 
             <groupId>io.javaslang</groupId>  
             <artifactId>javaslang-test</artifactId>  
